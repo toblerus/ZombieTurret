@@ -53,3 +53,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabs:
   - {fileID: 1705114161008060, guid: ef08fa6073cb9e248b3f06eb01d5bde7, type: 2}
+  spawningRate: 0.01
