@@ -96,7 +96,7 @@ namespace Enemy
 
         private bool NoLifeLeft
         {
-            get { return _life == 0; }
+            get { return _life <= 0; }
         }
 
         private static bool TookDamage(Collision2D other)

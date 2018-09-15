@@ -22,12 +22,16 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private Sprite BowRest;
     private bool canShoot;
 
+    private GameManager Manager;
+
     // Use this for initialization
     void Start()
     {
         _life = _maxLife;
         canShoot = true;
         BroadcastLife();
+
+        Manager = FindObjectOfType<GameManager>();
 
         MessageBroker.Default.Receive<DamagePlayerEvent>().Select(evt => evt.Amount).Subscribe(TakeDamage);
     }
@@ -80,6 +84,8 @@ public class PlayerScript : MonoBehaviour
         _shaftSpriteRenderer.sprite = BowPulled;
         var q = Quaternion.FromToRotation(Vector3.up, aimPosition - transform.position);
         var bullet = Instantiate(bulletPrefab, transform.position, q);
+        bullet.GetComponent<ArrowScript>().Damage = Manager.Damage;
+
         bullet.transform.SetParent(_shaftSpriteRenderer.transform);
         yield return new WaitForSeconds(0.2f);
         _shaftSpriteRenderer.sprite = BowRest;

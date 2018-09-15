@@ -9,13 +9,16 @@ public class GameManager : MonoBehaviour
 {
     public int MaxHealth;
     public int BaseHealth = 100;
+
     public int Health;
+
     //public int Cash;
     public ReactiveProperty<int> CashReactive;
     public int HealthUpgradeCost = 20;
     public int HealthPerUpgrade = 20;
     public int NumberOfHealthUpgrades = 0;
 
+    public int BaseDamage = 1;
     public int Damage = 1;
     public int DamagePerUpgrade = 1;
     public int NumberOfDamageUpgrades = 0;
@@ -42,9 +45,12 @@ public class GameManager : MonoBehaviour
         CashReactive = new ReactiveProperty<int>(50);
         MaxHealth = BaseHealth;
         Health = MaxHealth;
+
+        Damage = BaseDamage;
         MessageBroker.Default.Receive<PlayerLifeUpdatedEvent>().Subscribe(evt => { Health = evt.Life; })
             .AddTo(gameObject);
-        MessageBroker.Default.Receive<EnemyDiedEvent>().Subscribe(evt => { CashReactive.Value += evt.Gold; }).AddTo(gameObject);
+        MessageBroker.Default.Receive<EnemyDiedEvent>().Subscribe(evt => { CashReactive.Value += evt.Gold; })
+            .AddTo(gameObject);
     }
 
     public void OnUpgradeHealth()
@@ -52,13 +58,14 @@ public class GameManager : MonoBehaviour
         NumberOfHealthUpgrades++;
         CashReactive.Value -= HealthUpgradeCost * NumberOfHealthUpgrades;
         MaxHealth = BaseHealth + (HealthPerUpgrade * NumberOfHealthUpgrades);
+        Health = MaxHealth;
     }
 
     public void OnUpgradeDamage()
     {
         NumberOfDamageUpgrades++;
         CashReactive.Value -= DamageUpgradeCost * NumberOfDamageUpgrades;
-        Damage = DamagePerUpgrade * NumberOfDamageUpgrades;
+        Damage = BaseDamage+  (DamagePerUpgrade * NumberOfDamageUpgrades);
     }
 
     public void OnTurretUpgrade()
@@ -81,6 +88,11 @@ public class GameManager : MonoBehaviour
 
     public int CurrentHealthUpgradeCost()
     {
-        return HealthUpgradeCost * (NumberOfHealthUpgrades +1);
+        return HealthUpgradeCost * (NumberOfHealthUpgrades + 1);
+    }
+
+    public int CurrentDamageUpgradeCost()
+    {
+        return DamageUpgradeCost * (NumberOfDamageUpgrades + 1);
     }
 }
