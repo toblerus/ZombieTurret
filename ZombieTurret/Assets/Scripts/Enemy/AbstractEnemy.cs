@@ -60,7 +60,7 @@ namespace Enemy
         private void OnDeath()
         {
             _movementDisposable.Dispose();
-            MessageBroker.Default.Publish(new EnemyDiedEvent {Gold = _gold});
+            MessageBroker.Default.Publish(new EnemyDiedEvent {Gold = _gold, position = transform.position});
             Destroy(gameObject);
         }
 
