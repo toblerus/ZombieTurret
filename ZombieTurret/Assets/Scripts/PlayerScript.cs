@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    [SerializeField]private int _maxLife;
+    [SerializeField] private int _maxLife;
     private int _life;
 
 
@@ -17,12 +17,13 @@ public class PlayerScript : MonoBehaviour
     public float projectileForce = 500;
 
     // Use this for initialization
-    void Start() {
-
+    void Start()
+    {
     }
 
     // Update is called once per frame
-    void Update() {
+    void Update()
+    {
         aimPosition = Input.mousePosition;
         //subtract depth
         aimPosition.z = transform.position.z - Camera.main.transform.position.z;
@@ -31,13 +32,14 @@ public class PlayerScript : MonoBehaviour
 
         changeRotation();
 
-        if (Input.GetMouseButtonDown(0)) {
+        if (Input.GetMouseButtonDown(0))
+        {
             shoot();
         }
-
     }
 
-    void changeRotation() {
+    void changeRotation()
+    {
         Vector3 diff = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         diff.Normalize();
 
@@ -45,7 +47,8 @@ public class PlayerScript : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, 0f, rot_z);
     }
 
-    void shoot() {
+    void shoot()
+    {
         var q = Quaternion.FromToRotation(Vector3.up, aimPosition - transform.position);
         var bullet = Instantiate(bulletPrefab, transform.position, q);
         //add specific logic from framework
@@ -54,7 +57,11 @@ public class PlayerScript : MonoBehaviour
 
     void TakeDamage()
     {
-        MessageBroker.Default.Receive<DamagePlayerEvent>().Subscribe(evt => { }).AddTo(gameObject);
-    }
+        MessageBroker.Default.Receive<DamagePlayerEvent>().Subscribe(evt =>
+        {
 
+
+            _life -= evt.Amount;
+        }).AddTo(gameObject);
+    }
 }
