@@ -1,18 +1,19 @@
-﻿namespace Enemy
+﻿using System;
+using UnityEngine;
+using UniRx;
+
+
+namespace Enemy
 {
     public class Knight : AbstractEnemy
     {
-
-        // Use this for initialization
-        void Start()
+        protected override void Attack()
         {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            Observable.Interval(TimeSpan.FromSeconds(1)).Subscribe(x =>
+            {
+                DoDamage();
+                Debug.Log("DOING DAMAGE");
+            }).AddTo(gameObject);
         }
     }
 }
