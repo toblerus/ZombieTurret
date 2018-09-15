@@ -445,6 +445,8 @@ GameObject:
   - component: {fileID: 638714004}
   - component: {fileID: 638714003}
   - component: {fileID: 638714002}
+  - component: {fileID: 638714006}
+  - component: {fileID: 638714005}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -512,6 +514,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &638714005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 638714001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59700678e0092463cb106a3995cd22a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scanlineIntensity: 10
+  scanlineWidth: 1
+--- !u!114 &638714006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 638714001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c23356f494faf4703bf771f7ebc5708d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  intensity: 3.47
+  shift: 0.5
 --- !u!1 &1030114323
 GameObject:
   m_ObjectHideFlags: 0
@@ -1235,7 +1263,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1676786942
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1399,6 +1427,21 @@ Prefab:
       value: 
       objectReference: {fileID: 21546254383870348, guid: ce27b2992b85e3445b76fa7d6bf5079d,
         type: 2}
+    - target: {fileID: 223901463857224366, guid: 3f07c40efff520f4283a4df4c93a203c,
+        type: 2}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 223901463857224366, guid: 3f07c40efff520f4283a4df4c93a203c,
+        type: 2}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 638714003}
+    - target: {fileID: 223901463857224366, guid: 3f07c40efff520f4283a4df4c93a203c,
+        type: 2}
+      propertyPath: m_SortingOrder
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f07c40efff520f4283a4df4c93a203c, type: 2}
   m_IsPrefabAsset: 0
