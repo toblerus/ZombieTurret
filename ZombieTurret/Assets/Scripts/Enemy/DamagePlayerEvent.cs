@@ -2,6 +2,6 @@
 {
     public class DamagePlayerEvent
     {
-        public float Amount;
+        public int Amount;
     }
 }

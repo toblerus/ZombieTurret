@@ -31,7 +31,7 @@ namespace Enemy
 
         protected void DoDamage()
         {
-            MessageBroker.Default.Publish(new DamagePlayerEvent {Amount = _damageAmount});
+            MessageBroker.Default.Publish(new DamagePlayerEvent {Amount = (int)_damageAmount});
         }
 
         protected abstract void Attack();
