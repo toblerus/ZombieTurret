@@ -34,3 +34,5 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+ZombieTurret/Assets/Scripts/PlayerScript.cs.meta
+ZombieTurret/Assets/Prefabs/Arrow.prefab.meta
