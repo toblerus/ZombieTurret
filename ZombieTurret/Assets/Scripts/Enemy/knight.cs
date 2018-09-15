@@ -12,7 +12,7 @@ namespace Enemy
             Observable.Interval(TimeSpan.FromSeconds(1)).Subscribe(x =>
             {
                 DoDamage();
-                Debug.Log("DOING DAMAGE");
+                //Debug.Log("DOING DAMAGE");
             }).AddTo(gameObject);
         }
     }

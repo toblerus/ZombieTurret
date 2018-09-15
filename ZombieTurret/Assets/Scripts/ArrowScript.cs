@@ -5,6 +5,7 @@ using UnityEngine;
 public class ArrowScript : MonoBehaviour {
 
     Rigidbody2D rb;
+    public int Damage = 1;
     float killVelocity = 10;
 
 	// Use this for initialization

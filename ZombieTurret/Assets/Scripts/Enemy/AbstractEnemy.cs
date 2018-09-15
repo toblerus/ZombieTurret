@@ -7,7 +7,7 @@ namespace Enemy
 {
     public abstract class AbstractEnemy : MonoBehaviour
     {
-        private int _life;
+        [SerializeField] private int _life;
         [SerializeField] private float _maxMovementSpeed;
         [SerializeField] private float _minMovementSpeed;
 
@@ -50,10 +50,28 @@ namespace Enemy
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (!CollidedToTown(other)) return;
+            
 
-            _rigidBody.constraints = RigidbodyConstraints2D.FreezePositionX;
-           Attack();
+            if (TookDamage(other))
+            {
+                ReceiveDamage(other);
+            }
+
+            if (!CollidedToTown(other))
+            {
+                _rigidBody.constraints = RigidbodyConstraints2D.FreezePositionX;
+                Attack();
+            }
+        }
+
+        private void ReceiveDamage(Collision2D other)
+        {
+            _life -= other.gameObject.GetComponent<ArrowScript>().Damage;
+        }
+
+        private static bool TookDamage(Collision2D other)
+        {
+            return other.gameObject.CompareTag("Projectile");
         }
 
         private static bool CollidedToTown(Collision2D other)
