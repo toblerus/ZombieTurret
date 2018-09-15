@@ -8,21 +8,25 @@ namespace Enemy
     public abstract class AbstractEnemy : MonoBehaviour
     {
         [SerializeField] private int _life;
-        [SerializeField] private float _maxMovementSpeed;
-        [SerializeField] private float _minMovementSpeed;
+        [SerializeField] private int _gold;
+
+        [SerializeField] protected float _maxMovementSpeed;
+        [SerializeField] protected float _minMovementSpeed;
 
         [SerializeField] private float _damageAmount;
 
 
-        private Rigidbody2D _rigidBody;
+        protected Rigidbody2D _rigidBody;
+
+
+        private readonly CompositeDisposable _movementDisposable = new CompositeDisposable();
 
         private void Start()
         {
             _rigidBody = GetComponent<Rigidbody2D>();
 
 
-            Debug.Log("Here we are");
-            Movement();
+            Observable.EveryUpdate().Subscribe(x => { Movement(); }).AddTo(_movementDisposable);
         }
 
         private void TakeDamage()
@@ -36,30 +40,26 @@ namespace Enemy
 
         protected abstract void Attack();
 
-        private void Movement()
-        {
-            var rnd = Random.Range(_minMovementSpeed, _maxMovementSpeed);
-
-            _rigidBody.velocity = Vector2.left * rnd;
-        }
+        protected abstract void Movement();
 
         private void OnDeath()
         {
-//Maybe call an event to give something to the player
+            _movementDisposable.Dispose();
+            MessageBroker.Default.Publish(new EnemyDiedEvent {Gold = _gold});
+            Destroy(gameObject);
         }
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            
-
             if (TookDamage(other))
             {
                 ReceiveDamage(other);
             }
 
-            if (!CollidedToTown(other))
+            if (CollidedToTown(other))
             {
-                _rigidBody.constraints = RigidbodyConstraints2D.FreezePositionX;
+                _movementDisposable.Dispose();
+                _rigidBody.velocity = Vector2.zero;
                 Attack();
             }
         }
@@ -67,6 +67,16 @@ namespace Enemy
         private void ReceiveDamage(Collision2D other)
         {
             _life -= other.gameObject.GetComponent<ArrowScript>().Damage;
+
+            if (NoLifeLeft)
+            {
+                OnDeath();
+            }
+        }
+
+        private bool NoLifeLeft
+        {
+            get { return _life == 0; }
         }
 
         private static bool TookDamage(Collision2D other)
