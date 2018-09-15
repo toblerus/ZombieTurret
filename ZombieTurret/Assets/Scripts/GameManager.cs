@@ -33,6 +33,14 @@ public class GameManager : MonoBehaviour
 
     public int StartingCash = 100;
 
+    public ReactiveProperty<int> HealthUpgradeCostReactive;
+    public ReactiveProperty<int> NumberOfHealthUpgradesReactive;
+    public ReactiveProperty<int> DamageUpgradeCostReactive;
+    public ReactiveProperty<int> NumberOfDamageUpgradesReactive;
+    public ReactiveProperty<int> TurretUpgradeCostReactive;
+    public ReactiveProperty<int> TurretLevelReactive;
+
+
     public int GetHealth()
     {
         return Health;
@@ -45,6 +53,13 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        HealthUpgradeCostReactive = new ReactiveProperty<int>(HealthUpgradeCost);
+        NumberOfHealthUpgradesReactive = new ReactiveProperty<int>(NumberOfHealthUpgrades);
+        DamageUpgradeCostReactive = new ReactiveProperty<int>(DamageUpgradeCost);
+        NumberOfDamageUpgradesReactive = new ReactiveProperty<int>(NumberOfDamageUpgrades);
+        TurretUpgradeCostReactive = new ReactiveProperty<int>(TurretUpgradeCost);
+        TurretLevelReactive = new ReactiveProperty<int>(TurretLevel);
+
         CashReactive = new ReactiveProperty<int>(StartingCash);
         MaxHealth = BaseHealth;
         Health = MaxHealth;
@@ -62,6 +77,8 @@ public class GameManager : MonoBehaviour
         CashReactive.Value -= HealthUpgradeCost * NumberOfHealthUpgrades;
         MaxHealth = BaseHealth + (HealthPerUpgrade * NumberOfHealthUpgrades);
         Health = MaxHealth;
+        HealthUpgradeCostReactive.Value = CurrentHealthUpgradeCost();
+        NumberOfHealthUpgradesReactive.Value = NumberOfHealthUpgrades;
     }
 
     public void OnUpgradeDamage()
@@ -69,6 +86,8 @@ public class GameManager : MonoBehaviour
         NumberOfDamageUpgrades++;
         CashReactive.Value -= DamageUpgradeCost * NumberOfDamageUpgrades;
         Damage = BaseDamage +  (DamagePerUpgrade * TurretLevel * NumberOfDamageUpgrades);
+        DamageUpgradeCostReactive.Value = CurrentDamageUpgradeCost();
+        NumberOfDamageUpgradesReactive.Value = NumberOfDamageUpgrades;
     }
 
     public void OnTurretUpgrade()
@@ -76,6 +95,8 @@ public class GameManager : MonoBehaviour
         CashReactive.Value -= TurretUpgradeCost * TurretLevel;
         TurretLevel++;
         Damage = (BaseDamage + (DamagePerUpgrade * NumberOfDamageUpgrades)) * TurretLevel;
+        TurretUpgradeCostReactive.Value = CurrentTurretUpgradeCost();
+        TurretLevelReactive.Value = TurretLevel;
     }
 
     public void OnHeal()
