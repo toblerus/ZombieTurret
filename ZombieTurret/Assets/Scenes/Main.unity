@@ -140,7 +140,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8806225f0bed17540904f588a69d1091, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Enemy: {fileID: 1103359787864972, guid: e5f47e98a677535458bd3cc228f3bb74, type: 2}
+  EnemyPrefab: {fileID: 1103359787864972, guid: e5f47e98a677535458bd3cc228f3bb74,
+    type: 2}
   XPosition: 0
   _minimumY: -4.5
   _maximumY: 4.5
