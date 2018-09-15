@@ -1,6 +1,5 @@
-﻿using System;
-using System.Security.Cryptography.X509Certificates;
-using UniRx;
+﻿using UniRx;
+using Unity.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -19,7 +18,8 @@ namespace Enemy
         [SerializeField] private Slider HealthBar;
 
         [SerializeField] private int _damageAmount;
-
+        [SerializeField] private GameObject _bloodEffect;
+        [SerializeField] private GameObject _deathEffect;
 
         protected Rigidbody2D _rigidBody;
 
@@ -59,6 +59,8 @@ namespace Enemy
 
         private void OnDeath()
         {
+            var death = Instantiate(_deathEffect, transform, false);
+            death.transform.SetParent(null);
             _movementDisposable.Dispose();
             MessageBroker.Default.Publish(new EnemyDiedEvent {Gold = _gold});
             Destroy(gameObject);
@@ -87,7 +89,9 @@ namespace Enemy
             other.gameObject.transform.SetParent(transform);
 
             HealthBar.value = _life;
-            
+
+            Instantiate(_bloodEffect, transform, false);
+
             if (NoLifeLeft)
             {
                 OnDeath();
