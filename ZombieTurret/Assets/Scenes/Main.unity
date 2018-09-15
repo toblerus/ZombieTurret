@@ -1442,6 +1442,10 @@ Prefab:
       propertyPath: m_SortingOrder
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 1257125461081830, guid: 3f07c40efff520f4283a4df4c93a203c, type: 2}
+      propertyPath: m_Name
+      value: UIMain
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f07c40efff520f4283a4df4c93a203c, type: 2}
   m_IsPrefabAsset: 0
