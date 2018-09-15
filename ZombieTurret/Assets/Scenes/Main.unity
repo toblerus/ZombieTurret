@@ -802,7 +802,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 128bca832650a44499e24c6a9d448727, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxLife: 0
+  _maxLife: 100
   bulletPrefab: {fileID: 1432870907524202, guid: fbaec296f398db5419723d2caeeca085,
     type: 2}
   projectileForce: 500

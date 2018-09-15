@@ -19,6 +19,10 @@ public class PlayerScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        _life = _maxLife;
+        BroadcastLife();
+
+        MessageBroker.Default.Receive<DamagePlayerEvent>().Select(evt => evt.Amount).Subscribe(TakeDamage);
     }
 
     // Update is called once per frame
@@ -30,15 +34,15 @@ public class PlayerScript : MonoBehaviour
         //normalize
         aimPosition = Camera.main.ScreenToWorldPoint(aimPosition);
 
-        changeRotation();
+        ChangeRotation();
 
         if (Input.GetMouseButtonDown(0))
         {
-            shoot();
+            Shoot();
         }
     }
 
-    void changeRotation()
+    void ChangeRotation()
     {
         Vector3 diff = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         diff.Normalize();
@@ -47,7 +51,7 @@ public class PlayerScript : MonoBehaviour
         transform.rotation = Quaternion.Euler(0f, 0f, rot_z);
     }
 
-    void shoot()
+    void Shoot()
     {
         var q = Quaternion.FromToRotation(Vector3.up, aimPosition - transform.position);
         var bullet = Instantiate(bulletPrefab, transform.position, q);
@@ -55,13 +59,18 @@ public class PlayerScript : MonoBehaviour
         bullet.GetComponent<Rigidbody2D>().AddForce(bullet.transform.up * projectileForce);
     }
 
-    void TakeDamage()
+    void TakeDamage(int dmg)
     {
-        MessageBroker.Default.Receive<DamagePlayerEvent>().Subscribe(evt =>
+        _life -= dmg;
+        BroadcastLife();
+        if (_life == 0)
         {
+            MessageBroker.Default.Publish(new PlayerDiedEvent());
+        }
+    }
 
-
-            _life -= evt.Amount;
-        }).AddTo(gameObject);
+    private void BroadcastLife()
+    {
+        MessageBroker.Default.Publish(new PlayerLifeUpdatedEvent {Life = _life});
     }
 }

@@ -23,8 +23,9 @@ namespace Enemy
 
         protected Rigidbody2D _rigidBody;
 
+        private readonly ReactiveProperty<int> _distanceToPlayer = new ReactiveProperty<int>();
 
-        private readonly CompositeDisposable _movementDisposable = new CompositeDisposable();
+        protected readonly CompositeDisposable _movementDisposable = new CompositeDisposable();
 
         private void Start()
         {
@@ -32,8 +33,21 @@ namespace Enemy
             _life = _maxLife;
             HealthBar.maxValue = _maxLife;
             HealthBar.value = _maxLife;
-            Observable.EveryUpdate().Subscribe(x => { Movement(); }).AddTo(_movementDisposable);
+
+            Observable.EveryUpdate().Subscribe(x =>
+            {
+                Movement();
+            }).AddTo(_movementDisposable);
+
+            _distanceToPlayer.Skip(1).Subscribe(DistanceToPlayer).AddTo(gameObject);
+
+            Observable.EveryUpdate().Subscribe(x =>
+            {
+                GetDistanceToPlayer();
+            }).AddTo(gameObject);
         }
+
+        protected abstract void DistanceToPlayer(int distance);
 
         private void TakeDamage()
         {
@@ -61,13 +75,15 @@ namespace Enemy
             {
                 ReceiveDamage(other);
             }
+        }
 
-            if (CollidedToTown(other))
-            {
-                _movementDisposable.Dispose();
-                _rigidBody.velocity = Vector2.zero;
-                Attack();
-            }
+        void GetDistanceToPlayer()
+        {
+            var player = FindObjectOfType<PlayerScript>();
+            var distance = Vector2.Distance(player.gameObject.transform.position, transform.position);
+            _distanceToPlayer.Value = (int)distance;
+            Debug.Log(distance);
+
         }
 
         private void ReceiveDamage(Collision2D other)
@@ -75,14 +91,11 @@ namespace Enemy
             _life -= other.gameObject.GetComponent<ArrowScript>().Damage;
 
             HealthBar.value = _life;
-
-
+            
             if (NoLifeLeft)
             {
                 OnDeath();
             }
-
-            
         }
 
         private bool NoLifeLeft
