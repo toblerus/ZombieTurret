@@ -18,7 +18,7 @@ namespace Enemy
 
         [SerializeField] private Slider HealthBar;
 
-        [SerializeField] private float _damageAmount;
+        [SerializeField] private int _damageAmount;
 
 
         protected Rigidbody2D _rigidBody;
@@ -41,7 +41,7 @@ namespace Enemy
 
         protected void DoDamage()
         {
-            MessageBroker.Default.Publish(new DamagePlayerEvent {Amount = (int)_damageAmount});
+            MessageBroker.Default.Publish(new DamagePlayerEvent {Amount = _damageAmount});
         }
 
         protected abstract void Attack();

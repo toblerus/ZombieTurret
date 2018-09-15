@@ -1,6 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using UniRx;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EnemySpawner : MonoBehaviour {
 
@@ -11,16 +14,12 @@ public class EnemySpawner : MonoBehaviour {
     [SerializeField] private float _minimumY;
     [SerializeField] private float _maximumY;
 
+    public int EnemySpawnDelay = 2;
+
 
     private void Start()
     {
-        SpawnEnemy();
-        SpawnEnemy();
-        SpawnEnemy();
-        SpawnEnemy();
-        SpawnEnemy();
-        SpawnEnemy();
-
+        Observable.Interval(TimeSpan.FromSeconds(EnemySpawnDelay)).Subscribe(_ => SpawnEnemy()).AddTo(gameObject);
     }
 
     public void SpawnEnemy()
