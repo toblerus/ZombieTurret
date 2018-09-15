@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour {
 
     private Vector2 _spawnPosition;
-    public GameObject Enemy;
+    public GameObject EnemyPrefab;
 
     public int XPosition;
     [SerializeField] private float _minimumY;
@@ -14,6 +14,6 @@ public class EnemySpawner : MonoBehaviour {
     public void SpawnEnemy()
     {
         _spawnPosition = new Vector2(XPosition, Random.Range(_minimumY, _maximumY));
-        Instantiate(Enemy, _spawnPosition, Quaternion.identity);
+        Instantiate(EnemyPrefab, _spawnPosition, Quaternion.identity);
     }
 }
