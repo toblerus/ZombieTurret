@@ -138,7 +138,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1637612705213864}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.52, y: 0.88, z: 0}
+  m_LocalPosition: {x: -7.21, y: 0, z: 0}
   m_LocalScale: {x: 0.6149126, y: 0.6149126, z: 0.6149126}
   m_Children:
   - {fileID: 4526947163839810}
@@ -178,6 +178,10 @@ MonoBehaviour:
   _shaftSpriteRenderer: {fileID: 212640240521648864}
   BowPulled: {fileID: 21300000, guid: a4080191cf90e2044b274b2626f6bf02, type: 3}
   BowRest: {fileID: 21300000, guid: f0e71a647b7eb024f95b9af1b3e49862, type: 3}
+  ArrowSprites:
+  - {fileID: 21300000, guid: d1d39445d17f73e498e00f5d342b8f37, type: 3}
+  - {fileID: 21300000, guid: 3a118ed74ea52a840b35d1ef60701c97, type: 3}
+  - {fileID: 21300000, guid: 985d89b2f26de1c42ae345f61f93f468, type: 3}
 --- !u!212 &212242219443196824
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -348,9 +352,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingLayerID: 67789565
+  m_SortingLayer: 1
+  m_SortingOrder: 200
   m_Sprite: {fileID: 21300000, guid: 36f28fff377ae7c438895b3ce65ee21b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
