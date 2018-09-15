@@ -19,7 +19,7 @@ public class EnemySpawner : MonoBehaviour {
 
     private void Start()
     {
-        Observable.Interval(TimeSpan.FromSeconds(EnemySpawnDelay)).Subscribe(_ => SpawnEnemy()).AddTo(gameObject);
+       Observable.Interval(TimeSpan.FromSeconds(EnemySpawnDelay)).Subscribe(_ => SpawnEnemy()).AddTo(gameObject);
     }
 
     public void SpawnEnemy()

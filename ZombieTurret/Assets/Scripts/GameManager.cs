@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour {
-
+public class GameManager : MonoBehaviour
+{
     public int Health;
     public int Cash;
 
@@ -18,11 +18,10 @@ public class GameManager : MonoBehaviour {
     {
         return Cash;
     }
+
     void Start()
     {
-        MessageBroker.Default.Receive<DamagePlayerEvent>().Subscribe(evt => {
-            Health -= evt.Amount;
-
-            });
+        MessageBroker.Default.Receive<PlayerLifeUpdatedEvent>().Subscribe(evt => { Health = evt.Life; })
+            .AddTo(gameObject);
     }
 }
