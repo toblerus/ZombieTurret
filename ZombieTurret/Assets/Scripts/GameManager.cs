@@ -9,13 +9,16 @@ public class GameManager : MonoBehaviour
 {
     public int MaxHealth;
     public int BaseHealth = 100;
+
     public int Health;
-    public int Cash;
+
+    //public int Cash;
     public ReactiveProperty<int> CashReactive;
     public int HealthUpgradeCost = 20;
     public int HealthPerUpgrade = 20;
     public int NumberOfHealthUpgrades = 0;
 
+    public int BaseDamage = 1;
     public int Damage = 1;
     public int DamagePerUpgrade = 1;
     public int NumberOfDamageUpgrades = 0;
@@ -34,48 +37,62 @@ public class GameManager : MonoBehaviour
 
     public int GetCash()
     {
-        return Cash;
+        return CashReactive.Value;
     }
 
-    void Start()
+    void Awake()
     {
-        CashReactive = new ReactiveProperty<int>(0);
+        CashReactive = new ReactiveProperty<int>(50);
         MaxHealth = BaseHealth;
         Health = MaxHealth;
+
+        Damage = BaseDamage;
         MessageBroker.Default.Receive<PlayerLifeUpdatedEvent>().Subscribe(evt => { Health = evt.Life; })
             .AddTo(gameObject);
-        MessageBroker.Default.Receive<EnemyDiedEvent>().Subscribe(evt => { CashReactive.Value += evt.Gold; }).AddTo(gameObject);
+        MessageBroker.Default.Receive<EnemyDiedEvent>().Subscribe(evt => { CashReactive.Value += evt.Gold; })
+            .AddTo(gameObject);
     }
 
     public void OnUpgradeHealth()
     {
         NumberOfHealthUpgrades++;
-        Cash -= HealthUpgradeCost * NumberOfHealthUpgrades;
+        CashReactive.Value -= HealthUpgradeCost * NumberOfHealthUpgrades;
         MaxHealth = BaseHealth + (HealthPerUpgrade * NumberOfHealthUpgrades);
+        Health = MaxHealth;
     }
 
     public void OnUpgradeDamage()
     {
         NumberOfDamageUpgrades++;
-        Cash -= DamageUpgradeCost * NumberOfDamageUpgrades;
-        Damage = DamagePerUpgrade * NumberOfDamageUpgrades;
+        CashReactive.Value -= DamageUpgradeCost * NumberOfDamageUpgrades;
+        Damage = BaseDamage+  (DamagePerUpgrade * NumberOfDamageUpgrades);
     }
 
     public void OnTurretUpgrade()
     {
-        Cash -= TurretUpgradeCost * TurretLevel;
+        CashReactive.Value -= TurretUpgradeCost * TurretLevel;
         TurretLevel++;
         UpgradeTurret(TurretLevel);
     }
 
     public void OnHeal()
     {
-        Cash -= HealCost;
+        CashReactive.Value -= HealCost;
         Health = MaxHealth;
     }
 
     private void UpgradeTurret(int turretLevel)
     {
 
+    }
+
+    public int CurrentHealthUpgradeCost()
+    {
+        return HealthUpgradeCost * (NumberOfHealthUpgrades + 1);
+    }
+
+    public int CurrentDamageUpgradeCost()
+    {
+        return DamageUpgradeCost * (NumberOfDamageUpgrades + 1);
     }
 }
