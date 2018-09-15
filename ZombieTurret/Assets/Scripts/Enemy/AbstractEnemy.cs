@@ -23,7 +23,7 @@ namespace Enemy
 
         protected Rigidbody2D _rigidBody;
 
-        private readonly ReactiveProperty<int> _distanceToPlayer = new ReactiveProperty<int>();
+        private readonly ReactiveProperty<float> _distanceToPlayer = new ReactiveProperty<float>();
 
         protected readonly CompositeDisposable _movementDisposable = new CompositeDisposable();
 
@@ -34,11 +34,6 @@ namespace Enemy
             HealthBar.maxValue = _maxLife;
             HealthBar.value = _maxLife;
 
-            Observable.EveryUpdate().Subscribe(x =>
-            {
-                Movement();
-            }).AddTo(_movementDisposable);
-
             _distanceToPlayer.Skip(1).Subscribe(DistanceToPlayer).AddTo(gameObject);
 
             Observable.EveryUpdate().Subscribe(x =>
@@ -47,7 +42,7 @@ namespace Enemy
             }).AddTo(gameObject);
         }
 
-        protected abstract void DistanceToPlayer(int distance);
+        protected abstract void DistanceToPlayer(float distance);
 
         private void TakeDamage()
         {
@@ -77,11 +72,11 @@ namespace Enemy
             }
         }
 
-        void GetDistanceToPlayer()
+        private void GetDistanceToPlayer()
         {
             var player = FindObjectOfType<PlayerScript>();
             var distance = Vector2.Distance(player.gameObject.transform.position, transform.position);
-            _distanceToPlayer.Value = (int)distance;
+            _distanceToPlayer.Value = distance;
             Debug.Log(distance);
 
         }

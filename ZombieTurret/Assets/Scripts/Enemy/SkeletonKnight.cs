@@ -7,20 +7,20 @@ namespace Enemy
 {
     public class SkeletonKnight : AbstractEnemy
     {
-        protected override void DistanceToPlayer(int distance)
+        protected override void DistanceToPlayer(float distance)
         {
             AttackLogic(distance);
 
             MovementLogic(distance);
         }
 
-        public float AttackDistance = 0.5f;
+        public float AttackDistance;
 
-        private void MovementLogic(int distance)
+        private void MovementLogic(float distance)
         {
             if (distance > AttackDistance)
             {
-                if (_movementDisposable.IsDisposed)
+                if (_movementDisposable.Count==0)
                 {
                     Observable.EveryUpdate().Subscribe(x => { Movement(); }).AddTo(_movementDisposable);
                 }
@@ -32,9 +32,9 @@ namespace Enemy
             }
         }
 
-        private void AttackLogic(int distance)
+        private void AttackLogic(float distance)
         {
-            if (distance < AttackDistance)
+            if (distance <= AttackDistance)
             {
                 Attack();
             }

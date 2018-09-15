@@ -376,6 +376,7 @@ MonoBehaviour:
   _minMovementSpeed: 0.5
   HealthBar: {fileID: 114817918385845968}
   _damageAmount: 1
+  AttackDistance: 2
 --- !u!212 &212723763312129832
 SpriteRenderer:
   m_ObjectHideFlags: 1
