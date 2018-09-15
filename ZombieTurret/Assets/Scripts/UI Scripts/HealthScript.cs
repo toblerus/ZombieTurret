@@ -9,7 +9,6 @@ public class HealthScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        HealthText = GetComponent<TextMeshProUGUI>();
         GameManager = FindObjectOfType<GameManager>();
 	}
 	

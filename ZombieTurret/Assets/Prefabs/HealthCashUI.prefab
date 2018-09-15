@@ -447,7 +447,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameManager: {fileID: 0}
-  HealthText: {fileID: 0}
+  HealthText: {fileID: 114094368341206636}
 --- !u!222 &222036143523606068
 CanvasRenderer:
   m_ObjectHideFlags: 1

@@ -1,8 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Enemy;
+using UniRx;
 using UnityEngine;
 
-public class PlayerScript : MonoBehaviour {
+public class PlayerScript : MonoBehaviour
+{
+    [SerializeField]private int _maxLife;
+    private int _life;
+
 
     Vector3 aimPosition;
 
@@ -26,8 +32,6 @@ public class PlayerScript : MonoBehaviour {
         changeRotation();
 
         if (Input.GetMouseButtonDown(0)) {
-
-            
             shoot();
         }
 
@@ -46,6 +50,11 @@ public class PlayerScript : MonoBehaviour {
         var bullet = Instantiate(bulletPrefab, transform.position, q);
         //add specific logic from framework
         bullet.GetComponent<Rigidbody2D>().AddForce(bullet.transform.up * projectileForce);
-
     }
+
+    void TakeDamage()
+    {
+        MessageBroker.Default.Receive<DamagePlayerEvent>().Subscribe(evt => { }).AddTo(gameObject);
+    }
+
 }
