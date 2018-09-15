@@ -16,10 +16,17 @@ public class PlayerScript : MonoBehaviour
 
     public float projectileForce = 500;
 
+    [SerializeField] private SpriteRenderer _shaftSpriteRenderer;
+
+    [SerializeField] private Sprite BowPulled;
+    [SerializeField] private Sprite BowRest;
+    private bool canShoot;
+
     // Use this for initialization
     void Start()
     {
         _life = _maxLife;
+        canShoot = true;
         BroadcastLife();
 
         MessageBroker.Default.Receive<DamagePlayerEvent>().Select(evt => evt.Amount).Subscribe(TakeDamage);
@@ -38,7 +45,8 @@ public class PlayerScript : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            Shoot();
+            if (canShoot)
+                StartCoroutine(Shoot());
         }
     }
 
@@ -49,14 +57,6 @@ public class PlayerScript : MonoBehaviour
 
         float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, rot_z);
-    }
-
-    void Shoot()
-    {
-        var q = Quaternion.FromToRotation(Vector3.up, aimPosition - transform.position);
-        var bullet = Instantiate(bulletPrefab, transform.position, q);
-        //add specific logic from framework
-        bullet.GetComponent<Rigidbody2D>().AddForce(bullet.transform.up * projectileForce);
     }
 
     void TakeDamage(int dmg)
@@ -72,5 +72,19 @@ public class PlayerScript : MonoBehaviour
     private void BroadcastLife()
     {
         MessageBroker.Default.Publish(new PlayerLifeUpdatedEvent {Life = _life});
+    }
+
+    IEnumerator Shoot()
+    {
+        canShoot = false;
+        _shaftSpriteRenderer.sprite = BowPulled;
+        var q = Quaternion.FromToRotation(Vector3.up, aimPosition - transform.position);
+        var bullet = Instantiate(bulletPrefab, transform.position, q);
+        bullet.transform.SetParent(_shaftSpriteRenderer.transform);
+        yield return new WaitForSeconds(0.2f);
+        _shaftSpriteRenderer.sprite = BowRest;
+        bullet.transform.SetParent(null);
+        bullet.GetComponent<Rigidbody2D>().AddForce(bullet.transform.up * projectileForce);
+        canShoot = true;
     }
 }
