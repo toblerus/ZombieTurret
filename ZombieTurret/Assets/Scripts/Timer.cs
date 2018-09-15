@@ -4,6 +4,7 @@ using TMPro;
 using Assets.Scripts.UI_Scripts;
 using Unity.Linq;
 using System.Linq;
+using Enemy;
 
 public class Timer : MonoBehaviour
 {
@@ -48,7 +49,8 @@ public class Timer : MonoBehaviour
             FindObjectOfType<EnemySpawner>().SpawnerDisposable.Dispose();
             FindObjectOfType<PlayerScript>().enabled = false;
             FindObjectOfType<ShopController>().gameObject.Child("ShopUI").gameObject.SetActive(true);
-
+            var EnemyList = Resources.FindObjectsOfTypeAll(typeof(AbstractEnemy)).Cast<AbstractEnemy>().ToList();
+            EnemyList.ForEach(x => Destroy(x.gameObject));
         }
     }
 }
