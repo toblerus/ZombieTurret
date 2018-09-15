@@ -75,7 +75,7 @@ namespace Enemy
         private void GetDistanceToPlayer()
         {
             var player = FindObjectOfType<PlayerScript>();
-            var distance = Vector2.Distance(player.gameObject.transform.position, transform.position);
+            var distance = Mathf.Abs(player.gameObject.transform.position.x - transform.position.x);
             _distanceToPlayer.Value = distance;
         }
 
