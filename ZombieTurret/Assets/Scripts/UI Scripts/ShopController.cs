@@ -1,4 +1,5 @@
-﻿using UniRx;
+﻿using TMPro;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,13 +12,13 @@ namespace Assets.Scripts.UI_Scripts
         public Button Heal;
         public Button UpgradeTurret;
 
-        public Text HealthUpgradeCost;
-        public Text NumberOfHealthUpgrades;
-        public Text DamageUpgradeCost;
-        public Text NumberOfDamageUpgrades;
-        public Text HealCost;
-        public Text TurretUpgradeCost;
-        public Text NumberOfTurretUpgrades;
+        public TextMeshProUGUI HealthUpgradeCost;
+        public TextMeshProUGUI NumberOfHealthUpgrades;
+        public TextMeshProUGUI DamageUpgradeCost;
+        public TextMeshProUGUI NumberOfDamageUpgrades;
+        public TextMeshProUGUI HealCost;
+        public TextMeshProUGUI TurretUpgradeCost;
+        public TextMeshProUGUI NumberOfTurretUpgrades;
 
         public GameManager Manager;
 
@@ -59,6 +60,19 @@ namespace Assets.Scripts.UI_Scripts
                 Manager.OnTurretUpgrade();
             }).AddTo(gameObject);
 
+            Manager.HealthUpgradeCostReactive.Subscribe(val => HealthUpgradeCost.text = val.ToString())
+                .AddTo(gameObject);
+            Manager.NumberOfHealthUpgradesReactive.Subscribe(val => NumberOfHealthUpgrades.text = val.ToString())
+                .AddTo(gameObject);
+            Manager.DamageUpgradeCostReactive.Subscribe(val => DamageUpgradeCost.text = val.ToString())
+                .AddTo(gameObject);
+            Manager.NumberOfDamageUpgradesReactive.Subscribe(val => NumberOfDamageUpgrades.text = val.ToString())
+                .AddTo(gameObject);
+            Manager.TurretLevelReactive.Subscribe(val => NumberOfTurretUpgrades.text = val.ToString())
+                .AddTo(gameObject);
+            Manager.TurretUpgradeCostReactive.Subscribe(val => TurretUpgradeCost.text = val.ToString())
+                .AddTo(gameObject);
+            HealCost.text = Manager.HealCost.ToString();
         }
 	
         // Update is called once per frame
