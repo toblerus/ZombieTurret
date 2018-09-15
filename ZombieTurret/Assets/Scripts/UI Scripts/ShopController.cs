@@ -11,10 +11,21 @@ namespace Assets.Scripts.UI_Scripts
         public Button Heal;
         public Button UpgradeTurret;
 
+        public Text HealthUpgradeCost;
+        public Text NumberOfHealthUpgrades;
+        public Text DamageUpgradeCost;
+        public Text NumberOfDamageUpgrades;
+        public Text HealCost;
+        public Text TurretUpgradeCost;
+        public Text NumberOfTurretUpgrades;
+
         public GameManager Manager;
 
         private ReactiveCommand BuyHealthUpgrade;
         private ReactiveCommand BuyDamageUpgrade;
+
+        private ReactiveCommand BuyHeal;
+        private ReactiveCommand BuyTurretUpgrade;
 
         // Use this for initialization
         void Start () {
@@ -34,7 +45,19 @@ namespace Assets.Scripts.UI_Scripts
                 Manager.OnUpgradeDamage();
             }).AddTo(gameObject);
 
+            BuyHeal = new ReactiveCommand(Manager.CashReactive.Select(cash => cash >= Manager.HealCost));
+            BuyHeal.BindTo(Heal);
+            Heal.OnClickAsObservable().Subscribe(_ =>
+            {
+                Manager.OnHeal();
+            }).AddTo(gameObject);
 
+            BuyTurretUpgrade = new ReactiveCommand(Manager.CashReactive.Select(cash => cash >= Manager.CurrentTurretUpgradeCost()));
+            BuyTurretUpgrade.BindTo(UpgradeTurret);
+            UpgradeTurret.OnClickAsObservable().Subscribe(_ =>
+            {
+                Manager.OnTurretUpgrade();
+            }).AddTo(gameObject);
 
         }
 	

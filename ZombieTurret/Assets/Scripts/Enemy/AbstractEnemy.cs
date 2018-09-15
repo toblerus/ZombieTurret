@@ -44,10 +44,6 @@ namespace Enemy
 
         protected abstract void DistanceToPlayer(float distance);
 
-        private void TakeDamage()
-        {
-        }
-
         protected void DoDamage()
         {
             MessageBroker.Default.Publish(new DamagePlayerEvent {Amount = _damageAmount});
@@ -62,7 +58,7 @@ namespace Enemy
             var death = Instantiate(_deathEffect, transform, false);
             death.transform.SetParent(null);
             _movementDisposable.Dispose();
-            MessageBroker.Default.Publish(new EnemyDiedEvent {Gold = _gold});
+            MessageBroker.Default.Publish(new EnemyDiedEvent {Gold = _gold, position = transform.position});
             Destroy(gameObject);
         }
 
@@ -106,6 +102,18 @@ namespace Enemy
         private static bool TookDamage(Collision2D other)
         {
             return other.gameObject.CompareTag("Projectile");
+        }
+
+        public void applyDamage(int damage) {
+
+            _life -= damage;
+
+            HealthBar.value = _life;
+
+            if (NoLifeLeft)
+            {
+                OnDeath();
+            }
         }
 
     }

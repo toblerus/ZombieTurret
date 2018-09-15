@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UniRx;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class GameManager : MonoBehaviour
 {
@@ -30,6 +31,8 @@ public class GameManager : MonoBehaviour
 
     public int HealCost = 30;
 
+    public int StartingCash = 100;
+
     public int GetHealth()
     {
         return Health;
@@ -42,7 +45,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        CashReactive = new ReactiveProperty<int>(50);
+        CashReactive = new ReactiveProperty<int>(StartingCash);
         MaxHealth = BaseHealth;
         Health = MaxHealth;
 
@@ -65,25 +68,20 @@ public class GameManager : MonoBehaviour
     {
         NumberOfDamageUpgrades++;
         CashReactive.Value -= DamageUpgradeCost * NumberOfDamageUpgrades;
-        Damage = BaseDamage+  (DamagePerUpgrade * NumberOfDamageUpgrades);
+        Damage = BaseDamage +  (DamagePerUpgrade * TurretLevel * NumberOfDamageUpgrades);
     }
 
     public void OnTurretUpgrade()
     {
         CashReactive.Value -= TurretUpgradeCost * TurretLevel;
         TurretLevel++;
-        UpgradeTurret(TurretLevel);
+        Damage = (BaseDamage + (DamagePerUpgrade * NumberOfDamageUpgrades)) * TurretLevel;
     }
 
     public void OnHeal()
     {
         CashReactive.Value -= HealCost;
         Health = MaxHealth;
-    }
-
-    private void UpgradeTurret(int turretLevel)
-    {
-
     }
 
     public int CurrentHealthUpgradeCost()
@@ -94,5 +92,10 @@ public class GameManager : MonoBehaviour
     public int CurrentDamageUpgradeCost()
     {
         return DamageUpgradeCost * (NumberOfDamageUpgrades + 1);
+    }
+
+    public int CurrentTurretUpgradeCost()
+    {
+        return TurretLevel * TurretUpgradeCost;
     }
 }
