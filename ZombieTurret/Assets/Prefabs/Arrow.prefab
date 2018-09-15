@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 50491719310545330}
   - component: {fileID: 61751127139396768}
   - component: {fileID: 114346717094209200}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Arrow
   m_TagString: Projectile
   m_Icon: {fileID: 0}
@@ -36,13 +36,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1432870907524202}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.65, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 4.7650957, y: 1.6017097, z: 0}
   m_LocalScale: {x: 0.2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!50 &50491719310545330
 Rigidbody2D:
   serializedVersion: 4

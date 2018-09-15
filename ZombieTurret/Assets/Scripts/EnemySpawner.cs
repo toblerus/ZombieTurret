@@ -17,6 +17,9 @@ public class EnemySpawner : MonoBehaviour {
         SpawnEnemy();
         SpawnEnemy();
         SpawnEnemy();
+        SpawnEnemy();
+        SpawnEnemy();
+        SpawnEnemy();
 
     }
 

@@ -350,9 +350,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1030114324}
   - component: {fileID: 1030114325}
-  - component: {fileID: 1030114326}
   - component: {fileID: 1030114327}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Town
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -418,26 +417,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &1030114326
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1030114323}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 7
 --- !u!61 &1030114327
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -561,7 +540,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2009954820}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -7.8, y: 0, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 1}
   m_Children:
@@ -629,50 +608,3 @@ MonoBehaviour:
   bulletPrefab: {fileID: 1432870907524202, guid: fbaec296f398db5419723d2caeeca085,
     type: 2}
   projectileForce: 500
---- !u!1001 &2044997295
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4596426755628020, guid: e5f47e98a677535458bd3cc228f3bb74, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 7.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4596426755628020, guid: e5f47e98a677535458bd3cc228f3bb74, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 3.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 4596426755628020, guid: e5f47e98a677535458bd3cc228f3bb74, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4596426755628020, guid: e5f47e98a677535458bd3cc228f3bb74, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4596426755628020, guid: e5f47e98a677535458bd3cc228f3bb74, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4596426755628020, guid: e5f47e98a677535458bd3cc228f3bb74, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4596426755628020, guid: e5f47e98a677535458bd3cc228f3bb74, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4596426755628020, guid: e5f47e98a677535458bd3cc228f3bb74, type: 2}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114939357915941956, guid: e5f47e98a677535458bd3cc228f3bb74,
-        type: 2}
-      propertyPath: _life
-      value: 100
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: e5f47e98a677535458bd3cc228f3bb74, type: 2}
-  m_IsPrefabAsset: 0

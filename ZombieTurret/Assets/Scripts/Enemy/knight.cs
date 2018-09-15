@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UniRx;
+using Random = UnityEngine.Random;
 
 
 namespace Enemy
@@ -14,6 +15,13 @@ namespace Enemy
                 DoDamage();
                 //Debug.Log("DOING DAMAGE");
             }).AddTo(gameObject);
+        }
+
+        protected override void Movement()
+        {
+            var rnd = Random.Range(_minMovementSpeed, _maxMovementSpeed);
+
+            _rigidBody.velocity = Vector2.left * rnd;
         }
     }
 }
