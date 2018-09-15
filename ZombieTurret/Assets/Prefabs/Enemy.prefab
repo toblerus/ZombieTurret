@@ -20,8 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4596426755628020}
   - component: {fileID: 50150389343016168}
-  - component: {fileID: 114939357915941956}
   - component: {fileID: 58631161255259052}
+  - component: {fileID: 114988969502723452}
   m_Layer: 10
   m_Name: Enemy
   m_TagString: Untagged
@@ -359,7 +359,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &114939357915941956
+--- !u!114 &114988969502723452
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -367,11 +367,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1103359787864972}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44aaa93093f8403fa92c92f2e2c75169, type: 3}
+  m_Script: {fileID: 11500000, guid: aa1c4ce0775fb67438c47628acf4434e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxLife: 10
-  _gold: 0
+  _maxLife: 3
+  _gold: 1
   _maxMovementSpeed: 3
   _minMovementSpeed: 0.5
   HealthBar: {fileID: 114817918385845968}
@@ -410,7 +410,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

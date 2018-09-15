@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: BLKCHCRY SDF
+  m_Name: GameText
   m_EditorClassIdentifier: 
   hashCode: -1101976553
   material: {fileID: 21546254383870348}
@@ -1064,10 +1064,10 @@ Material:
     m_Colors:
     - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
     - _EnvMatrixRotation: {r: 0, g: 0, b: 0, a: 0}
-    - _FaceColor: {r: 0.63529414, g: 0.44705886, b: 0.2901961, a: 1}
+    - _FaceColor: {r: 0.6226415, g: 0.42289177, b: 0.26139194, a: 1}
     - _GlowColor: {r: 0, g: 1, b: 0, a: 0.5}
     - _MaskCoord: {r: 0, g: 0, b: 32767, a: 32767}
-    - _OutlineColor: {r: 0.5188679, g: 0.36267352, b: 0.23251157, a: 1}
+    - _OutlineColor: {r: 0.3490566, g: 0.24350058, b: 0.15641688, a: 1}
     - _ReflectFaceColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectOutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
