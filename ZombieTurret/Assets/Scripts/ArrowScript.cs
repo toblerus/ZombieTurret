@@ -16,10 +16,10 @@ public class ArrowScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (rb.velocity.magnitude < killVelocity) {
+        //if (rb.velocity.magnitude < killVelocity) {
             //var c = GetComponent<BoxCollider2D>().enabled = false;
-            Destroy(gameObject,1);
-        }
+        //    Destroy(gameObject,1);
+       // }
 		
 	}
 
