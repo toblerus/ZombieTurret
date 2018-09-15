@@ -77,8 +77,6 @@ namespace Enemy
             var player = FindObjectOfType<PlayerScript>();
             var distance = Vector2.Distance(player.gameObject.transform.position, transform.position);
             _distanceToPlayer.Value = distance;
-            Debug.Log(distance);
-
         }
 
         private void ReceiveDamage(Collision2D other)
@@ -103,9 +101,5 @@ namespace Enemy
             return other.gameObject.CompareTag("Projectile");
         }
 
-        private static bool CollidedToTown(Collision2D other)
-        {
-            return other.gameObject.name == "Town";
-        }
     }
 }

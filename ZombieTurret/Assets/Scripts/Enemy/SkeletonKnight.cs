@@ -20,7 +20,7 @@ namespace Enemy
         {
             if (distance > AttackDistance)
             {
-                if (_movementDisposable.Count==0)
+                if (_movementDisposable.Count == 0)
                 {
                     Observable.EveryUpdate().Subscribe(x => { Movement(); }).AddTo(_movementDisposable);
                 }
@@ -40,7 +40,8 @@ namespace Enemy
             }
             else
             {
-                _knightAttackTimer.Dispose();
+                if (_knightAttackTimer.Count > 0)
+                    _knightAttackTimer.Dispose();
             }
         }
 
