@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public int BaseHealth = 100;
     public int Health;
     public int Cash;
+    public ReactiveProperty<int> CashReactive;
     public int HealthUpgradeCost = 20;
     public int HealthPerUpgrade = 20;
     public int NumberOfHealthUpgrades = 0;
@@ -38,11 +39,12 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        CashReactive = new ReactiveProperty<int>(0);
         MaxHealth = BaseHealth;
         Health = MaxHealth;
         MessageBroker.Default.Receive<PlayerLifeUpdatedEvent>().Subscribe(evt => { Health = evt.Life; })
             .AddTo(gameObject);
-        MessageBroker.Default.Receive<EnemyDiedEvent>().Subscribe(evt => { Cash += evt.Gold; }).AddTo(gameObject);
+        MessageBroker.Default.Receive<EnemyDiedEvent>().Subscribe(evt => { CashReactive.Value += evt.Gold; }).AddTo(gameObject);
     }
 
     public void OnUpgradeHealth()
