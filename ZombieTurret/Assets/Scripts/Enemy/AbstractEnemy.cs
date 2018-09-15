@@ -83,6 +83,9 @@ namespace Enemy
         {
             _life -= other.gameObject.GetComponent<ArrowScript>().Damage;
 
+            other.gameObject.GetComponent<Rigidbody2D>().simulated = false;
+            other.gameObject.transform.SetParent(transform);
+
             HealthBar.value = _life;
             
             if (NoLifeLeft)
