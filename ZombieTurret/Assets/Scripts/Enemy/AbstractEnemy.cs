@@ -82,6 +82,7 @@ namespace Enemy
             try
             {
 <<<<<<< HEAD
+<<<<<<< HEAD
                 var headGameObject = gameObject.Descendants().SingleOrDefault(x => x.name == "New Sprite (1)");
                 if (headGameObject != null)
                 {
@@ -106,6 +107,10 @@ namespace Enemy
                     DecreaseLife(arrow.GetComponent<ArrowScript>().Damage * 2);
 >>>>>>> ccbc8786982746a60cd8010fb06a49ac93132a9a
                 }
+=======
+                gameObject.Descendants().Single(x => x.name == "New Sprite (1)").transform
+                    .SetParent(arrow.Descendants().Single(x => x.name == "tip").transform);
+>>>>>>> parent of bb43ef4... NRE fix for headshots
             }
             catch (Exception e)
             {
