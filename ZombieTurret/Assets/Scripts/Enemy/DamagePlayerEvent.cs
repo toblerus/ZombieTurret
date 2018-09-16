@@ -4,4 +4,12 @@
     {
         public int Amount;
     }
+
+    public enum ObjectType
+    {
+        Knight,
+        Ranged,
+        Pickup,
+        All
+    }
 }

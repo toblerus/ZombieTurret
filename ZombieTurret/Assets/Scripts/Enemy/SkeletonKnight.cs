@@ -22,7 +22,7 @@ namespace Enemy
             {
                 if (_movementDisposable.Count == 0)
                 {
-                    Observable.EveryUpdate().Subscribe(x => { Movement(); }).AddTo(_movementDisposable);
+                    Observable.EveryUpdate().Subscribe(x => { Movement(); }).AddTo(_movementDisposable).AddTo(gameObject);
                 }
             }
             else
