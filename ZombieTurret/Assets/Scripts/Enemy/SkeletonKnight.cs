@@ -61,6 +61,7 @@ namespace Enemy
 <<<<<<< HEAD
            // Debug.Log(GetLifePercentage);
 =======
+
 >>>>>>> 56b89be32bb4b86ae74cc7c642346a5a4e89836d
             var teste = GetComponentInChildren<Animation>();
             teste["Horse"].speed = GetLifePercentage;
