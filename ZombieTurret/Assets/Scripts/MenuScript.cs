@@ -7,7 +7,26 @@ using Unity.Linq;
 using System.Linq;
 
 public class MenuScript : MonoBehaviour
-{
+{ 
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            {
+                if (!FindObjectOfType<MenuScript>().isPaused)
+                {
+                    FindObjectOfType<MenuScript>().PauseGame();
+                }
+                else
+                {
+                    FindObjectOfType<MenuScript>().UnPauseGame();
+                }
+            }
+        }
+    }
+
+    public bool isPaused = false;
+
     public void LoadGame()
     {
         SceneManager.LoadScene("Main");
@@ -36,8 +55,21 @@ public class MenuScript : MonoBehaviour
         FindObjectOfType<EnemySpawner>().StartSpawning();
     }
 
-    public void ContinueFromPause()
-    {
+    public void PauseGame()
+    {  
+        isPaused = true;
+        Time.timeScale = 0;
+        FindObjectOfType<ShopController>().gameObject.Child("PauseMenu").gameObject.SetActive(true);
+        FindObjectOfType<PlayerScript>().enabled = false;
+        
+    }
 
+    public void UnPauseGame()
+    {
+        isPaused = false;
+        Time.timeScale = 1;
+        FindObjectOfType<ShopController>().gameObject.Child("PauseMenu").gameObject.SetActive(false);
+        FindObjectOfType<PlayerScript>().enabled = true;
+        
     }
 }

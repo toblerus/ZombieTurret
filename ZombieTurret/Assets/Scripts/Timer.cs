@@ -26,7 +26,7 @@ public class Timer : MonoBehaviour
 
     public void OnEndGame()
     {
-        PauseGame();
+        PauseGameAfterTimerRunOut();
         FindObjectOfType<ShopController>().gameObject.Child("GameOverScreen").gameObject.SetActive(true);
 
 
@@ -63,7 +63,7 @@ public class Timer : MonoBehaviour
         timer.text = "Timeleft: " + string.Format("{0}:{1}:{2}", minutes, seconds, (int)milliseconds);
         if(minutes <= 0.0f && seconds <= 0.0f && milliseconds <= 0.0f)
         {
-            PauseGame();
+            PauseGameAfterTimerRunOut();
             FindObjectOfType<ShopController>().gameObject.Child("ShopUI").gameObject.SetActive(true);
             //var EnemyList = FindObjectsOfTypeAll(typeof(AbstractEnemy)).Cast<AbstractEnemy>().ToList();
             //EnemyList.ForEach(x =>
@@ -74,11 +74,13 @@ public class Timer : MonoBehaviour
         }
 
     }
-        void PauseGame()
+        void PauseGameAfterTimerRunOut()
         {
             this.enabled = false;
             FindObjectOfType<EnemySpawner>().SpawnerDisposable.Dispose();
             FindObjectOfType<PlayerScript>().enabled = false;
             
         }
+
+        
 }
