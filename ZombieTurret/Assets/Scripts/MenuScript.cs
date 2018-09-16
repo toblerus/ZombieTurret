@@ -34,7 +34,10 @@ public class MenuScript : MonoBehaviour
         FindObjectOfType<ShopController>().gameObject.Child("ShopUI").gameObject.SetActive(false);
         FindObjectOfType<Timer>().Reset();
         FindObjectOfType<EnemySpawner>().StartSpawning();
+    }
 
+    public void ContinueFromPause()
+    {
 
     }
 }
