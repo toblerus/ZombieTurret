@@ -87,14 +87,15 @@ public class PlayerScript : MonoBehaviour
         _shaftSpriteRenderer.sprite = BowPulled;
         var q = Quaternion.FromToRotation(Vector3.up, aimPosition - transform.position);
         var bullet = Instantiate(bulletPrefab, transform.position, q);
-        
-        bullet.GetComponent<ArrowScript>().Damage = Manager.Damage;
+        var arrowScript = bullet.GetComponent<ArrowScript>();
+        arrowScript.Damage = Manager.Damage;
         bullet.GetComponentInChildren<SpriteRenderer>().sprite = GetSpriteForTurretTear();
         bullet.transform.SetParent(_shaftSpriteRenderer.transform);
         yield return new WaitForSeconds(0.2f);
         _shaftSpriteRenderer.sprite = BowRest;
         bullet.transform.SetParent(null);
         bullet.GetComponent<Rigidbody2D>().AddForce(bullet.transform.up * GetArrowForce());
+        arrowScript.EnableArrowCollisions();
         canShoot = true;
     }
 

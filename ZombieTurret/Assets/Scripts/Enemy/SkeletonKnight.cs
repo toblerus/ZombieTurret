@@ -22,7 +22,8 @@ namespace Enemy
             {
                 if (_movementDisposable.Count == 0)
                 {
-                    Observable.EveryUpdate().Subscribe(x => { Movement(); }).AddTo(_movementDisposable).AddTo(gameObject);
+                    Observable.EveryUpdate().Subscribe(x => { Movement(); }).AddTo(_movementDisposable)
+                        .AddTo(gameObject);
                 }
             }
             else
@@ -57,7 +58,11 @@ namespace Enemy
 
         protected override void Movement()
         {
-            var rnd = Random.Range(_minMovementSpeed, _maxMovementSpeed);
+            Debug.Log(GetLifePercentage);
+            var teste = GetComponentInChildren<Animation>();
+            teste["Horse"].speed = GetLifePercentage;
+
+            var rnd = Random.Range(_minMovementSpeed, _maxMovementSpeed) * GetLifePercentage;
             _rigidBody.velocity = Vector2.left * rnd;
         }
     }
