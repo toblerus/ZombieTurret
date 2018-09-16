@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212233012221658784}
   - component: {fileID: 61019629626889928}
   - component: {fileID: 114255082361839760}
-  - component: {fileID: 50699951597547296}
+  - component: {fileID: 50469532238199486}
   m_Layer: 0
   m_Name: ExplosiveBarrel
   m_TagString: Untagged
@@ -151,8 +151,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1123255765415880}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.6095425, y: -0.7647414, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 4.44, y: 0.97, z: 0}
+  m_LocalScale: {x: 0.19477355, y: 0.19880919, z: 0.212403}
   m_Children:
   - {fileID: 4376862700601378}
   - {fileID: 4462548222186238}
@@ -186,7 +186,7 @@ Transform:
   m_Father: {fileID: 4350589429829182}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &50699951597547296
+--- !u!50 &50469532238199486
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 1
@@ -197,9 +197,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_Mass: 40
+  m_LinearDrag: 4
+  m_AngularDrag: 4
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -221,15 +221,15 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 5.12, y: 5.12}
+    newSize: {x: 5.12, y: 5.12}
+    adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.32, y: 0.32}
+  m_Size: {x: 3.5, y: 5}
   m_EdgeRadius: 0
 --- !u!114 &114126779141463468
 MonoBehaviour:
@@ -264,7 +264,11 @@ MonoBehaviour:
   _minMovementSpeed: 0
   HealthBar: {fileID: 114979891113349268}
   _damageAmount: 0
-  explosion: {fileID: 1357954643593230, guid: 2ce21da22a3b28747940d6bb08a27424, type: 2}
+  _bloodEffect: {fileID: 0}
+  _deathEffect: {fileID: 1134129239631916, guid: 7e48ba6b1b968764490bbc70b66e3fe1,
+    type: 2}
+  _gameObjectType: 2
+  explosion: {fileID: 1134129239631916, guid: 7e48ba6b1b968764490bbc70b66e3fe1, type: 2}
   explosionRadius: 2.5
 --- !u!114 &114548102993773654
 MonoBehaviour:
@@ -467,18 +471,18 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1693788199
+  m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 902b3f869a8b2064f8d9395957f4f003, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 5.12, y: 5.12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!222 &222024299649322618
