@@ -81,19 +81,28 @@ namespace Enemy
             var arrow = other.gameObject;
             try
             {
-                gameObject.Descendants().Single(x => x.name == "New Sprite (1)").transform
-                    .SetParent(arrow.Descendants().Single(x => x.name == "tip").transform);
+                if (arrow)
+                {
+                    var tip = arrow.Descendants().SingleOrDefault(x => x.name == "tip").transform;
+                    if (tip != null)
+                    {
+                        gameObject.Descendants().Single(x => x.name == "New Sprite (1)").transform
+                            .SetParent(tip);
+
+                        other.enabled = false;
+
+                        gameObject.GetComponent<CircleCollider2D>().enabled = false;
+                    }
+                    DecreaseLife(arrow.GetComponent<ArrowScript>().Damage * 2);
+                }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                throw;
             }
-            other.enabled = false;
 
-            gameObject.GetComponent<CircleCollider2D>().enabled = false;
 
-            DecreaseLife(arrow.GetComponent<ArrowScript>().Damage * 2);
+
         }
 
         private void OnCollisionEnter2D(Collision2D other)
