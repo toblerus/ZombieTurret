@@ -1,4 +1,5 @@
-﻿using UniRx;
+﻿using System.Security.Cryptography.X509Certificates;
+using UniRx;
 using Unity.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -98,8 +99,10 @@ namespace Enemy
             other.gameObject.transform.SetParent(transform);
 
             HealthBar.value = _life;
-
-            Instantiate(_bloodEffect, transform, false);
+            if(_gameObjectType != ObjectType.Pickup) {
+                Instantiate(_bloodEffect, transform, false);
+            }
+            
 
             if (NoLifeLeft)
             {
@@ -126,6 +129,14 @@ namespace Enemy
             if (NoLifeLeft)
             {
                 OnDeath();
+            }
+        }
+
+        protected float GetLifePercentage
+        {
+            get
+            {
+                return ((_life * 100f) / _maxLife)/100f;
             }
         }
 
