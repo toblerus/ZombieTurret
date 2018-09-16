@@ -102,7 +102,7 @@ public class PlayerScript : MonoBehaviour
 
     private Sprite GetSpriteForTurretTear()
     {
-        return ArrowSprites[Manager.TurretLevel - 1];
+        return Manager.TurretLevel <= Manager.MaxTurretLevel ? ArrowSprites[Manager.TurretLevel - 1] : ArrowSprites[Manager.MaxTurretLevel - 1];
     }
 
     private float GetArrowForce()

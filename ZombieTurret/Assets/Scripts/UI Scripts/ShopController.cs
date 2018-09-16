@@ -53,7 +53,7 @@ namespace Assets.Scripts.UI_Scripts
                 Manager.OnHeal();
             }).AddTo(gameObject);
 
-            BuyTurretUpgrade = new ReactiveCommand(Manager.CashReactive.Select(cash => cash >= Manager.CurrentTurretUpgradeCost()));
+            BuyTurretUpgrade = new ReactiveCommand(Manager.CashReactive.Select(cash => cash >= Manager.TurretUpgradeCostReactive.Value));
             BuyTurretUpgrade.BindTo(UpgradeTurret);
             UpgradeTurret.OnClickAsObservable().Subscribe(_ =>
             {
