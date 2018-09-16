@@ -81,8 +81,15 @@ namespace Enemy
             var arrow = other.gameObject;
             try
             {
-                gameObject.Descendants().Single(x => x.name == "New Sprite (1)").transform
-                    .SetParent(arrow.Descendants().Single(x => x.name == "tip").transform);
+                var headGameObject = gameObject.Descendants().SingleOrDefault(x => x.name == "New Sprite (1)");
+                if (headGameObject != null)
+                {
+                    var arrowGameObject = arrow.Descendants().SingleOrDefault(x => x.name == "tip");
+                    if (arrowGameObject != null)
+                    {
+                        headGameObject.transform.SetParent(arrowGameObject.transform);
+                    }
+                }
             }
             catch (Exception e)
             {
