@@ -20,6 +20,7 @@ namespace Enemy
         [SerializeField] private int _damageAmount;
         [SerializeField] private GameObject _bloodEffect;
         [SerializeField] private GameObject _deathEffect;
+        [SerializeField] private ObjectType _gameObjectType;
 
         protected Rigidbody2D _rigidBody;
 
@@ -40,6 +41,18 @@ namespace Enemy
             {
                 GetDistanceToPlayer();
             }).AddTo(gameObject);
+
+            MessageBroker.Default.Receive<DestroyGameObjectsOfTypeEvent>()
+                .Subscribe(evt => SelfdestructIfNecessary(evt.ObjectTypeToDestroy))
+                .AddTo(gameObject);
+        }
+
+        private void SelfdestructIfNecessary(ObjectType objObjectTypeToDestroy)
+        {
+            if (objObjectTypeToDestroy == ObjectType.All || objObjectTypeToDestroy == _gameObjectType)
+            {
+                gameObject.Destroy();
+            }
         }
 
         protected abstract void DistanceToPlayer(float distance);
