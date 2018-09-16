@@ -6,6 +6,7 @@ using Unity.Linq;
 using System.Linq;
 using Enemy;
 using UniRx;
+using System;
 
 public class Timer : MonoBehaviour
 {
@@ -14,6 +15,22 @@ public class Timer : MonoBehaviour
     public float minutes = 0;
     public float seconds = 5;
     public float milliseconds = 0;
+
+    public void Start()
+    {
+        MessageBroker.Default.Receive<PlayerDiedEvent>().Subscribe(_ => {
+            OnEndGame();
+            Debug.Log("Timer");
+            }).AddTo(gameObject);
+    }
+
+    public void OnEndGame()
+    {
+        PauseGame();
+        FindObjectOfType<ShopController>().gameObject.Child("GameOverScreen").gameObject.SetActive(true);
+
+
+    }
 
     public void Reset()
     {
@@ -46,9 +63,7 @@ public class Timer : MonoBehaviour
         timer.text = "Timeleft: " + string.Format("{0}:{1}:{2}", minutes, seconds, (int)milliseconds);
         if(minutes <= 0.0f && seconds <= 0.0f && milliseconds <= 0.0f)
         {
-            this.enabled = false;
-            FindObjectOfType<EnemySpawner>().SpawnerDisposable.Dispose();
-            FindObjectOfType<PlayerScript>().enabled = false;
+            PauseGame();
             FindObjectOfType<ShopController>().gameObject.Child("ShopUI").gameObject.SetActive(true);
             //var EnemyList = FindObjectsOfTypeAll(typeof(AbstractEnemy)).Cast<AbstractEnemy>().ToList();
             //EnemyList.ForEach(x =>
@@ -57,5 +72,13 @@ public class Timer : MonoBehaviour
             //});
             MessageBroker.Default.Publish(new DestroyGameObjectsOfTypeEvent(){ObjectTypeToDestroy = ObjectType.All});
         }
+
     }
+        void PauseGame()
+        {
+            this.enabled = false;
+            FindObjectOfType<EnemySpawner>().SpawnerDisposable.Dispose();
+            FindObjectOfType<PlayerScript>().enabled = false;
+            
+        }
 }

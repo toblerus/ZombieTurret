@@ -69,9 +69,10 @@ public class PlayerScript : MonoBehaviour
     {
         _life -= dmg;
         BroadcastLife();
-        if (_life == 0)
+        if (_life <= 0)
         {
             MessageBroker.Default.Publish(new PlayerDiedEvent());
+            Debug.Log("Player died");
         }
     }
 

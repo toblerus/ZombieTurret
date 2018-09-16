@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 0
-  BaseHealth: 100
+  BaseHealth: 1
   Health: 0
   HealthUpgradeCost: 20
   HealthPerUpgrade: 20
@@ -1087,6 +1087,26 @@ Prefab:
         type: 2}
       propertyPath: seconds
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114085162301760384, guid: 3f07c40efff520f4283a4df4c93a203c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1355270361}
+    - target: {fileID: 114085162301760384, guid: 3f07c40efff520f4283a4df4c93a203c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Restart
+      objectReference: {fileID: 0}
+    - target: {fileID: 114663409573060892, guid: 3f07c40efff520f4283a4df4c93a203c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1355270361}
+    - target: {fileID: 114663409573060892, guid: 3f07c40efff520f4283a4df4c93a203c,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BackToMainMenu
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f07c40efff520f4283a4df4c93a203c, type: 2}
