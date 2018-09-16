@@ -58,6 +58,7 @@ namespace Enemy
 
         protected override void Movement()
         {
+
             var teste = GetComponentInChildren<Animation>();
             teste["Horse"].speed = GetLifePercentage;
 

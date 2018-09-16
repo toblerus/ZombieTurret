@@ -1,4 +1,6 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System;
+using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using UniRx;
 using Unity.Linq;
 using UnityEngine;
@@ -38,10 +40,7 @@ namespace Enemy
 
             _distanceToPlayer.Skip(1).Subscribe(DistanceToPlayer).AddTo(gameObject);
 
-            Observable.EveryUpdate().Subscribe(x =>
-            {
-                GetDistanceToPlayer();
-            }).AddTo(gameObject);
+            Observable.EveryUpdate().Subscribe(x => { GetDistanceToPlayer(); }).AddTo(gameObject);
 
             MessageBroker.Default.Receive<DestroyGameObjectsOfTypeEvent>()
                 .Subscribe(evt => SelfdestructIfNecessary(evt.ObjectTypeToDestroy))
@@ -76,11 +75,34 @@ namespace Enemy
             Destroy(gameObject);
         }
 
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            Debug.Log("HeadSHot");
+            var arrow = other.gameObject;
+            try
+            {
+                gameObject.Descendants().Single(x => x.name == "New Sprite (1)").transform
+                    .SetParent(arrow.Descendants().Single(x => x.name == "tip").transform);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            other.enabled = false;
+
+            gameObject.GetComponent<CircleCollider2D>().enabled = false;
+
+            DecreaseLife(arrow.GetComponent<ArrowScript>().Damage * 2);
+        }
+
         private void OnCollisionEnter2D(Collision2D other)
         {
+            bool headShot = other.otherCollider is CircleCollider2D;
+
             if (TookDamage(other))
             {
-                ReceiveDamage(other);
+                ReceiveDamage(other, headShot);
             }
         }
 
@@ -91,24 +113,33 @@ namespace Enemy
             _distanceToPlayer.Value = distance;
         }
 
-        private void ReceiveDamage(Collision2D other)
+        private void ReceiveDamage(Collision2D other, bool headShot)
         {
-            _life -= other.gameObject.GetComponent<ArrowScript>().Damage;
+            if (!headShot)
+            {
+                other.gameObject.GetComponent<Rigidbody2D>().simulated = false;
+                other.gameObject.transform.SetParent(transform);
+            }
 
-            other.gameObject.GetComponent<Rigidbody2D>().simulated = false;
-            other.gameObject.transform.SetParent(transform);
+            DecreaseLife(other.gameObject.GetComponent<ArrowScript>().Damage);
+        }
 
+        private void DecreaseLife(int life)
+        {
+            _life -= life;
             HealthBar.value = _life;
-            if(_gameObjectType != ObjectType.Pickup) {
+
+            if (_gameObjectType != ObjectType.Pickup)
+            {
                 Instantiate(_bloodEffect, transform, false);
             }
-            
 
             if (NoLifeLeft)
             {
                 OnDeath();
             }
         }
+
 
         private bool NoLifeLeft
         {
@@ -120,8 +151,8 @@ namespace Enemy
             return other.gameObject.CompareTag("Projectile");
         }
 
-        public void applyDamage(int damage) {
-
+        public void applyDamage(int damage)
+        {
             _life -= damage;
 
             HealthBar.value = _life;
@@ -134,11 +165,7 @@ namespace Enemy
 
         protected float GetLifePercentage
         {
-            get
-            {
-                return ((_life * 100f) / _maxLife)/100f;
-            }
+            get { return ((_life * 100f) / _maxLife) / 100f; }
         }
-
     }
 }

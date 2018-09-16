@@ -83,6 +83,7 @@ public class GameManager : MonoBehaviour
         Health = MaxHealth;
         HealthUpgradeCostReactive.Value = CurrentHealthUpgradeCost();
         NumberOfHealthUpgradesReactive.Value = NumberOfHealthUpgrades;
+        CashReactive.SetValueAndForceNotify(CashReactive.Value);
     }
 
     public void OnUpgradeDamage()
@@ -92,21 +93,24 @@ public class GameManager : MonoBehaviour
         Damage = BaseDamage +  (DamagePerUpgrade * TurretLevel * NumberOfDamageUpgrades);
         DamageUpgradeCostReactive.Value = CurrentDamageUpgradeCost();
         NumberOfDamageUpgradesReactive.Value = NumberOfDamageUpgrades;
+        CashReactive.SetValueAndForceNotify(CashReactive.Value);
     }
 
     public void OnTurretUpgrade()
     {
         CashReactive.Value -= TurretUpgradeCost * TurretLevel;
         TurretLevel++;
+        TurretLevelReactive.Value = TurretLevel;
         Damage = (BaseDamage + (DamagePerUpgrade * NumberOfDamageUpgrades)) * TurretLevel;
         TurretUpgradeCostReactive.Value = CurrentTurretUpgradeCost();
-        TurretLevelReactive.Value = TurretLevel;
+        CashReactive.SetValueAndForceNotify(CashReactive.Value);
     }
 
     public void OnHeal()
     {
         CashReactive.Value -= HealCost;
         Health = MaxHealth;
+        CashReactive.SetValueAndForceNotify(CashReactive.Value);
     }
 
     public int CurrentHealthUpgradeCost()
