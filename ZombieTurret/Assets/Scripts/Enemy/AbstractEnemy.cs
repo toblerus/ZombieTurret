@@ -99,8 +99,10 @@ namespace Enemy
             other.gameObject.transform.SetParent(transform);
 
             HealthBar.value = _life;
-
-            Instantiate(_bloodEffect, transform, false);
+            if(_gameObjectType != ObjectType.Pickup) {
+                Instantiate(_bloodEffect, transform, false);
+            }
+            
 
             if (NoLifeLeft)
             {
