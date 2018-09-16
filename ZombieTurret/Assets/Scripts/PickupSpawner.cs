@@ -16,7 +16,8 @@ public class PickupSpawner : MonoBehaviour {
     public void SpawnRandomPickup(Vector3 refactor) 
     {
         if (Random.Range(0.0f, 1.0f) > (1 - spawningRate)) {
-            int randomObject = Random.Range(0, prefabs.Length - 1);
+            int randomObject = Random.Range(0, prefabs.Length);
+            Debug.Log(randomObject);
             Instantiate(prefabs[randomObject], refactor, Quaternion.identity);
         }
         
