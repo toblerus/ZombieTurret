@@ -5,6 +5,7 @@ using UnityEngine;
 public class ArrowScript : MonoBehaviour
 {
     Rigidbody2D rb;
+    private BoxCollider2D collider;
     public int Damage = 1;
     float killVelocity = 10;
 
@@ -12,6 +13,8 @@ public class ArrowScript : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        collider = GetComponent<BoxCollider2D>();
+        collider.enabled = false;
     }
 
     // Update is called once per frame
@@ -25,5 +28,10 @@ public class ArrowScript : MonoBehaviour
     private void OnBecameInvisible()
     {
         Destroy(gameObject);
+    }
+
+    public void EnableArrowCollisions()
+    {
+        collider.enabled = true;
     }
 }

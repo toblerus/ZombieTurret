@@ -4,9 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ExplosiveBarrel : AbstractEnemy {
-
     public GameObject explosion;
-
     public float explosionRadius;
 
     protected override void Attack()
