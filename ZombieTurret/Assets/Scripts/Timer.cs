@@ -61,7 +61,7 @@ public class Timer : MonoBehaviour
         milliseconds -= Time.deltaTime * 100;
 
         timer.text = "Timeleft: " + string.Format("{0}:{1}:{2}", minutes, seconds, (int)milliseconds);
-        if(minutes <= 0.0f && seconds <= 0.0f && milliseconds <= 0.0f)
+        if(minutes <= 0.0f && seconds <= 0.0f && milliseconds <= 1.0f)
         {
             PauseGameAfterTimerRunOut();
             FindObjectOfType<ShopController>().gameObject.Child("ShopUI").gameObject.SetActive(true);
