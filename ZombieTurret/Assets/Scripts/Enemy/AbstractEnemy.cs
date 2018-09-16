@@ -20,7 +20,7 @@ namespace Enemy
 
         [SerializeField] private int _damageAmount;
         [SerializeField] private GameObject _bloodEffect;
-        [SerializeField] private GameObject _deathEffect;
+        [SerializeField] protected GameObject _deathEffect;
         [SerializeField] private ObjectType _gameObjectType;
 
         protected Rigidbody2D _rigidBody;
@@ -67,7 +67,7 @@ namespace Enemy
 
         protected abstract void Movement();
 
-        private void OnDeath()
+        protected virtual void OnDeath()
         {
             var death = Instantiate(_deathEffect, transform, false);
             death.transform.SetParent(null);

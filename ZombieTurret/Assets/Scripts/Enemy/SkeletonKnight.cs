@@ -58,7 +58,6 @@ namespace Enemy
 
         protected override void Movement()
         {
-            Debug.Log(GetLifePercentage);
             var teste = GetComponentInChildren<Animation>();
             teste["Horse"].speed = GetLifePercentage;
 

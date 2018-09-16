@@ -69,6 +69,10 @@ public class GameManager : MonoBehaviour
             .AddTo(gameObject);
         MessageBroker.Default.Receive<EnemyDiedEvent>().Subscribe(evt => { CashReactive.Value += evt.Gold; })
             .AddTo(gameObject);
+        MessageBroker.Default.Receive<HealPlayerEvent>().Subscribe(_ => {
+            healPlayer();
+
+        } ).AddTo(gameObject);
     }
 
     public void OnUpgradeHealth()
@@ -118,5 +122,9 @@ public class GameManager : MonoBehaviour
     public int CurrentTurretUpgradeCost()
     {
         return TurretLevel * TurretUpgradeCost;
+    }
+
+    public void healPlayer() {
+        Health = MaxHealth;
     }
 }
